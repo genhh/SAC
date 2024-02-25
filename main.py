@@ -6,7 +6,7 @@ import os
 
 import utils
 import SAC
-import OurDDPG
+import TD3
 import DDPG
 
 
@@ -35,7 +35,7 @@ def eval_policy(policy, env_name, seed, eval_episodes=10):
 if __name__ == "__main__":
 	
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--policy", default="SAC")                  # Policy name (SAC, DDPG or OurDDPG)
+	parser.add_argument("--policy", default="SAC")                  # Policy name (SAC, DDPG or TD3)
 	parser.add_argument("--env", default="HalfCheetah-v2")          # environment name
 	parser.add_argument("--seed", default=0, type=int)              # Sets Gym, PyTorch and Numpy seeds
 	parser.add_argument("--start_timesteps", default=25e3, type=int)# Time steps initial random policy is used
@@ -90,8 +90,8 @@ if __name__ == "__main__":
 		kwargs["noise_clip"] = args.noise_clip * max_action
 		kwargs["policy_freq"] = args.policy_freq
 		policy = SAC.SAC(**kwargs)
-	elif args.policy == "OurDDPG":
-		policy = OurDDPG.DDPG(**kwargs)
+	elif args.policy == "TD3":
+		policy = TD3.DDPG(**kwargs)
 	elif args.policy == "DDPG":
 		policy = DDPG.DDPG(**kwargs)
 
